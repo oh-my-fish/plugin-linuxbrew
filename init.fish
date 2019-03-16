@@ -1,17 +1,9 @@
-set -l linuxbrew_bin_path "$HOME/.linuxbrew/bin"
-set -l linuxbrew_sbin_path "$HOME/.linuxbrew/sbin"
-set -l linuxbrew_manpath "$HOME/.linuxbrew/share/man"
-set -l linuxbrew_infopath "$HOME/.linuxbrew/share/info"
+set -l brew "/home/linuxbrew/.linuxbrew/bin/brew"
 
-contains -- $linuxbrew_bin_path $PATH
-  or set -gx PATH $linuxbrew_bin_path $PATH
+if [ -d "$HOME/.linuxbrew" ]
+    set brew "$HOME/.linuxbrew/bin/brew"
+end
 
-contains -- $linuxbrew_sbin_path $PATH
-  or set -gx PATH $linuxbrew_sbin_path $PATH
-
-contains -- $linuxbrew_manpath $MANPATH
-  or set -gx MANPATH $linuxbrew_manpath $MANPATH
-
-contains -- $linuxbrew_infopath $INFOPATH
-  or set -gx INFOPATH $linuxbrew_infopath $INFOPATH
-
+if [ -f "$brew" ]
+    eval (eval "$brew" shellenv)
+end
